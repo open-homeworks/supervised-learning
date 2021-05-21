@@ -1,6 +1,6 @@
 import numpy as np
 
-def _proportion(c, y):
+def proportion(c, y):
     """ compute the proportion of data points of class c in labels. 
         y: array or series object with the data labels"""
 
@@ -9,25 +9,25 @@ def _proportion(c, y):
     ## homework:end
     return prop
 
-def _gini_index(y):
+def gini_index(y):
     """ Computes the gini index of ds """
     ## homework:start
     ## homework:end
     return gini
 
-def _entropy(y):
+def entropy(y):
     """ Computes the entropy of a data set"""
     ## homework:start
     ## homework:end
     return entropy
 
-def _info_gain(y, y_left, y_right, impurity_fn):
+def info_gain(y, y_left, y_right, impurity_fn):
     """Compute the information gain of a split."""
     ## homework:start
     ## homework:end
     return info_gain
 
-def _split_ds(X, y, idx, value):
+def split_dataset(X, y, idx, value):
     """ Create left and right splits of ds based on idx and value"""
     ## homework:start
     #ds_left = Dataset(lX, ly)
@@ -36,7 +36,7 @@ def _split_ds(X, y, idx, value):
     return lX, ly, rX, ry
 
 
-def _best_split(X, y, impurity_fn):
+def best_split(X, y, impurity_fn):
     """ find the best split of a dataset using the given impurity_fn"""
     #set best value to the highest possible
     ## homework:start
@@ -61,13 +61,24 @@ class DecisionTreeClassifier:
         self._root = None
         self.max_depth = max_depth
         if criterion == 'gini':
-            self._impurity_fn = lambda x: _gini_index(x)
+            self._impurity_fn = gini_index
         else:
-            self._impurity_fn = lambda x: _entropy(x)
+            self._impurity_fn = entropy
                
+    def fit(self, X, y):
+        self._root = self._best_split(X, y)
+        self._recursive_split(self._root, 1)
+
     
+    def predict(self, X):
+        if self._root is not None:
+            iterable = (self._recursive_travel(self._root, xi) for xi in X)
+            return np.fromiter(iterable, int, X.shape[0])
+        else:
+            raise RuntimeError("please train me first")
+
     def _best_split(self, X, y):
-        return _best_split(X, y, self._impurity_fn)
+        return best_split(X, y, self._impurity_fn)
     
     def _define_class(self, labels):
         return np.bincount(labels).argmax()
@@ -99,11 +110,7 @@ class DecisionTreeClassifier:
         else:
             node['right'] = self._best_split(ds_right[0], ds_right[1])
             self._recursive_split(node['right'], depth + 1)
-      
-    def fit(self, X, y):
-        self._root = self._best_split(X, y)
-        self._recursive_split(self._root, 1)
-        
+
     def _recursive_travel(self, node, x):
         idx = node['idx']
         value = node['value']
@@ -117,10 +124,4 @@ class DecisionTreeClassifier:
                 return self._recursive_travel(node['right'], x)
             else:
                 return node['right']
-    
-    def predict(self, X):
-        if self._root is not None:
-            iterable = (self._recursive_travel(self._root, xi) for xi in X)
-            return np.fromiter(iterable, int, X.shape[0])
-        else:
-            raise RuntimeError("please train me first")
+      

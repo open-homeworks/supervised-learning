@@ -79,53 +79,8 @@ class KNN:
         """ Simply stores the training data"""
         self._X = np.copy(X)
         self._y = np.copy(y)
-
-    def _distance_to_data(self, x):
-        """
-        Compute the distance of all row vectors in X, with
-        respect to x.
-
-        Args:
-            x (np.ndarray): Test observation, a 1D numpy array.
-
-        returns:
-            an array of shape [n_samples, 1], which stores the distance
-            of x to every row vector in X.
-
-        """
-        # we do not add euclidean_distance to the class, becasue
-        # it does not require any atribute of self.
-        
-        iterable = (euclidean_distance(x, xi) for xi in self._X)
-        return np.fromiter(iterable, np.float32, count=self._X.shape[0])    
-
-    def _find_nearest_neighbors_idx(self, x):
-        """
-        Find the indices of the k-nearest-neighbors of x.
-
-        Args:
-            x (np.array): Test observation, a 1D numpy array.
-
-        returns:
-            indices in X of the k-nearest neighbors of x.
-
-        """
-        # find the indices corresponding to the least distances
-        indices = np.argsort(self._distance_to_data(x))
-        # take the first k indices
-        return indices[:self.k]
-
-    def _predict_one(self, x):
-        """ Predict the output of x using knn """
-        
-        indices = self._find_nearest_neighbors_idx(x)
-        # select the k-nearest neighbors output
-        neighbors_output = self._y[indices]
-        # compute the output of the prediction
-        cls_ = np.bincount(neighbors_output).argmax()
-        return cls_
     
     def predict(self, X):
         """ run prediction on a batch of samples """
-        iterable = (self._predict_one(x) for x in X)
+        iterable = (knn_prediction(self._X, self._y, x, self.k) for x in X)
         return np.fromiter(iterable, np.int32, count=X.shape[0])
