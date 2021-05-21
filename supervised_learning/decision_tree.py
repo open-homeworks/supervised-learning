@@ -5,42 +5,45 @@ def proportion(c, y):
         y: array or series object with the data labels"""
 
     ## homework:start
-    prop = 
+    result = 
     ## homework:end
-    return prop
+    return result
 
 def gini_index(y):
-    """ Computes the gini index of ds """
+    """ Computes the gini index of the dataset """
     ## homework:start
+    result = 
     ## homework:end
-    return gini
+    return result
 
 def entropy(y):
     """ Computes the entropy of a data set"""
     ## homework:start
+    result = 
     ## homework:end
-    return entropy
+    return result
 
 def info_gain(y, y_left, y_right, impurity_fn):
     """Compute the information gain of a split."""
     ## homework:start
+    result = 
     ## homework:end
-    return info_gain
+    return result
 
 def split_dataset(X, y, idx, value):
     """ Create left and right splits of ds based on idx and value"""
     ## homework:start
-    #ds_left = Dataset(lX, ly)
-    #ds_right = Dataset(rX, ry)
+    X_left, y_left = 
+    X_right, y_right = 
     ## homework:end
-    return lX, ly, rX, ry
+    return X_left, y_left, X_right, y_right
 
 
 def best_split(X, y, impurity_fn):
     """ find the best split of a dataset using the given impurity_fn"""
-    #set best value to the highest possible
+
     ## homework:start
-    best = 
+    best_info_gain = 
     for idx in range(indices):
         for _ in _:
             ds_left, ds_right = 

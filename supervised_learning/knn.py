@@ -21,9 +21,9 @@ def distance_to_data(X, x):
         
     """
     ## homework:start
-    iterable = 
+    result = 
     ## homework:end
-    return np.fromiter(iterable, np.float32, count=X.shape[0])  
+    return result
 
 def find_nearest_neighbors_idx(X, x, k):
     """
@@ -39,12 +39,10 @@ def find_nearest_neighbors_idx(X, x, k):
         indices in X of the k-nearest neighbors of x.
         
     """
-    # find the indices corresponding to the least distances
     ## homework:start
-    indices = 
-    # take the first k indices
-     return __
+    result = 
     ## homework:end
+    return result
 
 def knn_prediction(X, y, x, k):
     """
@@ -62,13 +60,9 @@ def knn_prediction(X, y, x, k):
         
     """
     ## homework:start
-    indices = 
-    # select the k-nearest neighbors output
-    neighbors_output = 
-    # compute the output of the prediction
-    cls_ = 
+    result = 
     ## homework:end
-    return cls_
+    return result
 
 class KNN:
     def __init__(self, k=5):
