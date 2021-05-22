@@ -46,18 +46,14 @@ def find_nearest_neighbors_idx(X, x, k):
 
 def knn_prediction(X, y, x, k):
     """
-    Find the k-nearest-neighbors of x.
+    Find the most common class of the k nearest neighbors of x in X.
     
     Args:
         X (np.ndarray): Reference observations, a 2D numpy array of
             shape [n_samples, n_features].
         y (np.array): Reference labels of shape [n_samples,]
         x (np.array): Test observation, a 1D numpy array.
-        k (int): Number of neighbors to consider
-    
-    returns:
-        indices in X of the k-nearest neighbors of x.
-        
+        k (int): Number of neighbors to consider       
     """
     ## homework:start
     result = 
